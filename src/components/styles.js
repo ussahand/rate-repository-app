@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, Button as NativeButton } from "react-native"
-import { styleProps } from "react-native-web/dist/cjs/modules/forwardedProps"
+
 const colors = {
   bg1st: '#1b1c25', // background dark
   bg2nd: '#292a2d', // light dark
