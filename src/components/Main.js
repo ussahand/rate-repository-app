@@ -1,21 +1,23 @@
 import Constants from 'expo-constants';
-import { View, StyleSheet, PixelRatio, Dimensions } from 'react-native';
+import { StyleSheet, PixelRatio, Dimensions, Platform } from 'react-native';
+import { Routes, Route, Navigate } from 'react-router-native';
 import { Div } from './styles';
 
 import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
+import SignIn from './Signin';
 
 const styles = StyleSheet.create({
   container: {
     marginTop: Constants.statusBarHeight,
-    // flexGrow: 1,
-    // flexShrink: 1,    
+    height: '100%'
   },
 });
 
 const layout = (e) =>{
   // const windim = useWindowDimensions();
   // console.clear();
+  console.log('Platform:', Platform);
   console.log('layout dim:', e.nativeEvent.layout);
   console.log('pixel ratio get:', PixelRatio.get());
   console.log('getFontScale:', PixelRatio.getFontScale());
@@ -27,11 +29,14 @@ const layout = (e) =>{
 }
 
 const Main = () => {
-  console.log(20000)
   return (
-    <Div style={styles.container} color='bg3rd' onLayout={layout}>
-      <AppBar title='Repositories' />
-      <RepositoryList />
+    <Div style={styles.container} onLayout={layout}>
+      <AppBar />
+      <Routes>
+        <Route path='/' element={<RepositoryList />} />
+        <Route path='/signin' element={<SignIn/>} />
+        <Route path='*' element={<Navigate to="/" replace />} />
+      </Routes>
     </Div>
   );
 };

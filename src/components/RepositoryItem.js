@@ -52,5 +52,5 @@ const card = StyleSheet.create({
   left:{flex:1},
   right:{flex:3, justifyContent:'space-between', alignItems:'flex-start'},
   image:{ width: 80, height: 80, borderRadius:10},
-  bottomRow:{flexDirection: 'row', justifyContent:'space-around', marginVertical: 10},
+  bottomRow:{flexDirection: 'row', justifyContent:'space-around'},
 })

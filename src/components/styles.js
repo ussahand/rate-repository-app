@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Button as NativeButton } from "react-native"
+import { StyleSheet, View, Text, Button as NativeButton, TextInput, Platform } from "react-native"
 
 const colors = {
   bg1st: '#1b1c25', // background dark
@@ -10,6 +10,8 @@ const colors = {
   c4th: 'gray',
   c5th: '#ce9178',
   c6th: '#b7dcaa',
+  error: '#ec663a',
+  warn: 'yellow',
 }
 
 const defaultFontSize = {
@@ -19,10 +21,9 @@ const defaultFontSize = {
 const div = StyleSheet.create({
   container: {
     backgroundColor: colors.bg1st,
-    borderColor: 'yellow',
+    // borderColor: 'yellow',
     // borderWidth: 1,
-    // padding: 11,
-    margin:2,
+    padding:2,
   },
   bg2nd: { backgroundColor: colors.bg2nd, },
   bg3rd: { backgroundColor: colors.bg3rd, },
@@ -38,6 +39,13 @@ const p = StyleSheet.create({
   parag: {
     color: colors.c1st,
     fontSize: defaultFontSize.h5, //react native default font size is 14 dp
+    fontFamily: Platform.select({
+      ios: 'Arial',
+      android: 'Roboto',
+      web: 'System',
+      native: 'System',
+      default: 'System',
+    })
     // borderColor: 'yellow',
     // backgroundColor: 'white',
     // borderWidth: 1,
@@ -48,6 +56,8 @@ const p = StyleSheet.create({
   c4th: { color: colors.c4th },
   c5th: { color: colors.c5th },
   c6th: { color: colors.c6th },
+  error: { color: colors.error },
+  warn: { color: colors.warn },
   h1: { fontSize: defaultFontSize.h1 },
   h2: { fontSize: defaultFontSize.h2 },
   h3: { fontSize: defaultFontSize.h3 },
@@ -67,6 +77,9 @@ export const P = ({ color, fontSize, bold, style, children, ...props }) =>
     >
     {children}
   </Text>
+
+export const Per = ({ color, ...props }) => // red text or error
+  <P color={color || 'error'} {...props} />
 //-------------------
 
 const button = StyleSheet.create({
@@ -81,3 +94,19 @@ export const Button = ({ color, fontSize, style, children, ...props }) =>
     >
     {children}
   </NativeButton>
+
+//------------------------------------
+const input = StyleSheet.create({
+  box:{
+    backgroundColor: colors.c4th,
+    // marginHorizontal: 10,
+    marginVertical: 5,
+    fontSize: defaultFontSize.h2,
+  },
+  bg2nd: { backgroundColor: colors.bg2nd, },
+  bg3rd: { backgroundColor: colors.bg3rd, },
+})
+export const Input = ({color, style, ...props}) =>
+    <TextInput placeholderTextColor={colors.c3rd} style={[input.box, colors[color] && input[color],style]} {...props} />
+
+    
