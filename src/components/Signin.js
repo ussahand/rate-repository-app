@@ -1,60 +1,28 @@
-import { Div, P, Per, Input, Button } from './styles';
-import { Formik } from 'formik'
-import * as yup from 'yup'
+import { Navigate } from 'react-router-native';
+import useSignIn from '../hooks/useSignIn';
+import SingInFormikForm from './SingInFormikForm';
+import { Div, P, Perr } from '../styles';
 
-const initialValues = {
-  userName: '',
-  password: '',
-}
-const validationYupSchema = yup.object().shape({
-  userName: yup.string().min(3, 'user name should be longer').required('user name is required'),
-  password: yup.string().min(4,'password should be longer').required('password is required'),
-})
+const SignIn = () => {
+  const [signIn, result] = useSignIn()
+  // const navigate = useNavigate()
 
-const submitForm = values => console.log('sign in values are:',values)
-
-const FormikInput = ({name , placeholder, values, errors, handleChange, ...props}) =>
-  <>
-    <Input placeholder={placeholder || name} 
-      value={values[name]} 
-      style={errors[name] && {borderWidth:2, borderColor:'red'}}
-      onChangeText={handleChange(name)}
-      {...props}
-    />
-    {errors[name] && <Per>{errors[name]}</Per>}
-  </>
-
-const SigninForm = ({handleSubmit, dirty, isValid, ...props}) =>
-    <Div color='bg3rd' style={{ paddingHorizontal: 10, paddingBottom: 10 }}>
-      <P fontSize='h2' >Sign in</P>
-      <FormikInput {...{name:'userName', placeholder:'user name', ...props}} />
-      <FormikInput secureTextEntry {...{name:'password', ...props}} />
-      <Button title='Sign in' onPress={handleSubmit} disabled={!dirty || !isValid} />
-    </Div>
-
-const SignIn = () => 
-  <Formik initialValues={initialValues} onSubmit={submitForm} validationSchema = {validationYupSchema}>
-    { (props) => <SigninForm {...props} /> }
-  </Formik>
-
-export default SignIn;
-
-/**
-  const FormikTextInput = ({ name, ...props }) => {
-  const [field, meta, helpers] = useField(name);
-  const showError = meta.touched && meta.error;
+  const submitForm = values => {signIn(values)}
+  
+  // useEffect(()=>{
+  //   if (result.data?.token)
+  //   navigate('/', { replace: true })
+  // },[result.data])
 
   return (
-    <>
-      <TextInput
-        onChangeText={value => helpers.setValue(value)}
-        onBlur={() => helpers.setTouched(true)}
-        value={field.value}
-        error={showError}
-        {...props}
-      />
-      {showError && <Text style={styles.errorText}>{meta.error}</Text>}
-    </>
-  );
-};
- */
+    <Div color='bg3rd' style={{ paddingHorizontal: 10, paddingBottom: 10 }}>
+      <P fontSize='h2' >Sign in</P>
+      <SingInFormikForm callBack={submitForm} />
+      {result.error && <Perr>{result.error.message}</Perr>}
+      {result.data?.token && <P>{result.data.username} logged in </P>}
+      {result.data?.token &&  <Navigate to="/" replace={true} />}
+    </Div>
+  )
+}
+
+export default SignIn;

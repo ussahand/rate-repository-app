@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Button as NativeButton, TextInput, Platform } from "react-native"
+import { StyleSheet, View, Text, Button as NativeButton, TextInput, Platform, Dimensions } from "react-native"
 
 const colors = {
   bg1st: '#1b1c25', // background dark
@@ -17,6 +17,8 @@ const colors = {
 const defaultFontSize = {
   h1: 32, h2: 24, h3: 18, h4: 16, h5: 14, h6: 12, h7: 10
 }
+
+export const WINDOW = Dimensions.get('window');
 //----------
 const div = StyleSheet.create({
   container: {
@@ -78,7 +80,7 @@ export const P = ({ color, fontSize, bold, style, children, ...props }) =>
     {children}
   </Text>
 
-export const Per = ({ color, ...props }) => // red text or error
+export const Perr = ({ color, ...props }) => // red text or error
   <P color={color || 'error'} {...props} />
 //-------------------
 

@@ -1,11 +1,11 @@
 import { Image, StyleSheet } from "react-native"
-import { Div, P, Button } from "./styles"
+import { Div, P, Button } from "../styles"
 
 const kConvert = n =>
   n >= 1000 ? (Math.round(n / 100)/10 + 'K') : n 
 
 export const RepositoryItem = ({item}) => {
-  // console.log(Object.entries(item))
+  // console.log('Repository item: ', Object.entries(item))
   return(
     <Div color='bg3rd'>
       <Div id='card' style={card.box} >

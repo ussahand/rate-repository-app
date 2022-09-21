@@ -1,11 +1,13 @@
-import Constants from 'expo-constants';
-import { StyleSheet, PixelRatio, Dimensions, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Routes, Route, Navigate } from 'react-router-native';
-import { Div } from './styles';
+import Constants from 'expo-constants';
 
-import AppBar from './AppBar';
-import RepositoryList from './RepositoryList';
-import SignIn from './Signin';
+import { Div } from './styles';
+// import LogDebug from './LogDebug'
+import AppBar from './components/AppBar';
+import RepositoryList from './components/RepositoryList';
+import SignIn from './components/SignIn';
+import SignOut from './components/SignOut';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +16,26 @@ const styles = StyleSheet.create({
   },
 });
 
+const Main = () => {
+  // console.log('main process.env', process.env)
+  // console.log('main constants manifest', Constants)
+  return (
+    <Div style={styles.container} >
+      {/* <LogDebug /> */}
+      <AppBar />
+      <Routes>
+        <Route path='/' element={<RepositoryList />} />
+        <Route path='/signin' element={<SignIn/>} />
+        <Route path='/signout' element={<SignOut/>} />
+        <Route path='*' element={<Navigate to="/" replace />} />
+      </Routes>
+    </Div>
+  );
+};
+
+export default Main;
+
+/*
 const layout = (e) =>{
   // const windim = useWindowDimensions();
   // console.clear();
@@ -27,18 +49,4 @@ const layout = (e) =>{
   console.log('Dimensions.get window',  Dimensions.get('window')) // Size of the visible Application window
   // console.log('Windo dims:', windim);
 }
-
-const Main = () => {
-  return (
-    <Div style={styles.container} onLayout={layout}>
-      <AppBar />
-      <Routes>
-        <Route path='/' element={<RepositoryList />} />
-        <Route path='/signin' element={<SignIn/>} />
-        <Route path='*' element={<Navigate to="/" replace />} />
-      </Routes>
-    </Div>
-  );
-};
-
-export default Main;
+*/
